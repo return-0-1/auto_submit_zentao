@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1f222274-dd4a-4f43-9551-0cd048d665f3" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/auto_submit_zentao.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/business_handler.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/constants.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/page_operations.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../tools/MDB_to_CSV.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../tools/MagicrayCheck.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../tools/SignCheck.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../tools/get_control.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../tools/html_to_csv.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../tools/reflow_cal.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/GPT.py" beforeDir="false" afterPath="$PROJECT_DIR$/../tools/GPT.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/extracted_texts/ASMPT印刷程序方案V1.2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/extracted_texts/VSD-V6传送边顶针提示优化.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/extracted_texts/VSD-V6修改钢网开口设计中快捷键.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/extracted_texts/VSD-V6倒圆角功能改进.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/extracted_texts/VSD-V6公共焊盘优化改善 .txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/extracted_texts/VSD-V6增加非闭合屏蔽罩焊盘开口时内缩外扩功能.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/extracted_texts/VSD-V6导入DXF开口改善.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/extracted_texts/VSD-V6屏蔽框设计方案.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/extracted_texts/VSD-V6屏蔽罩避让优化.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/extracted_texts/VSD-V6开口学习版本自动迭代.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/extracted_texts/VSD-V6开口风险提示.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/extracted_texts/VSD-V6栅格设置界面置顶优化.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/extracted_texts/VSD-V6适配海量数据库.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/extracted_texts/VSD-V6通孔回流界面与开口设计界面资讯同步优化 .txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/extracted_texts/VSD-V6钢网库学习方案.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/extracted_texts/VSD-V6钢网库开口增加编辑料号.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/extracted_texts/VSD-V6钢网库开口屏蔽特定封装.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/extracted_texts/VSD-V6钢网库开口版本优化改善 .txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/extracted_texts/VSD-V6钢网开口参数信息实时监测.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/extracted_texts/VSD-V6钢网开口模版Oval新增功能.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/extracted_texts/VSD-V6钢网输出数据自由配置.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/extracted_texts/VSD-V6阶梯提取优化改善  .txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/pptx_to_text.py" beforeDir="false" afterPath="$PROJECT_DIR$/../tools/pptx_to_text.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/updated_file_20241119_150005.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/updated_file_20241119_150729.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/updated_file_20241119_150806.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/updated_file_20241119_150841.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/updated_file_20241119_150922.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/updated_file_20241121_142603.docx" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="39bkvYU2LeZgbtCXorA4xkaAWZ7" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.GPT.executor": "Run",
+    "Python.get_need.executor": "Run",
+    "Python.main.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "H:/project/tools"
+  }
+}]]></component>
+  <component name="RunManager" selected="Python.main">
+    <configuration name="GPT" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="tools" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../tools" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../tools/GPT.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="get_need" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="autoSubmit" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../autoSubmit" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../autoSubmit/get_need.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="auto_submit_zentao" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.main" />
+        <item itemvalue="Python.GPT" />
+        <item itemvalue="Python.get_need" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-d68999036c7f-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.14475.56" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="1f222274-dd4a-4f43-9551-0cd048d665f3" name="更改" comment="" />
+      <created>1770972389230</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1770972389230</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/page_operations.py</url>
+          <line>118</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

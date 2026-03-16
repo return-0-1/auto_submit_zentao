@@ -8,7 +8,7 @@ NEED_URL = "http://192.168.7.3:82/index.php?m=story&f=view&t=html&id="
 DEFAULT_MODULE = "/"
 DEFAULT_SUBMIT_TYPE = "case"
 DEFAULT_STORY_ID_LIST = [
-    "3378"
+    "3404"
 ]
 JSON_DATA_PATH = "D:\\VayoPro\\需求方案\\gpt_output\\"
 USERNAME = "lihz"

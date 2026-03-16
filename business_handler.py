@@ -49,7 +49,7 @@ class FormFiller:
                 # 验证并提交
                 if is_demand_selected:
                     logging.info(f"需求 {demand} 选中成功，提交表单")
-                    # self.page_operator.submit_form()
+                    self.page_operator.submit_form()
                 else:
                     logging.warning(f"需求 {demand} 选中失败，等待用户操作")
                     while True:

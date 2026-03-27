@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1f222274-dd4a-4f43-9551-0cd048d665f3" name="更改" comment="增加ts同步工具&#10;修改提示词">
-      <change afterPath="$PROJECT_DIR$/../tools/prompt.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../tools/utility.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/constants.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../tools/GPT.py" beforeDir="false" afterPath="$PROJECT_DIR$/../tools/GPT.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/ts_sync.py" beforeDir="false" afterPath="$PROJECT_DIR$/../tools/ts_sync.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +22,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../tools" />
     <option name="ROOT_SYNC" value="SYNC" />
   </component>
   <component name="ProjectColorInfo">{
@@ -49,7 +47,7 @@
     &quot;last_opened_file_path&quot;: &quot;H:/project/tools&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.ts_sync">
     <configuration name="GPT" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="tools" />
       <option name="ENV_FILES" value="" />
@@ -140,10 +138,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.ts_sync" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python.GPT" />
         <item itemvalue="Python.get_need" />
-        <item itemvalue="Python.ts_sync" />
       </list>
     </recent_temporary>
   </component>
@@ -179,7 +177,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773643541743</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="增加ts同步工具&#10;修改提示词">
+      <option name="closed" value="true" />
+      <created>1773990269578</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1773990269578</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

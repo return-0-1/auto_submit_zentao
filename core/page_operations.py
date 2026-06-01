@@ -1,14 +1,16 @@
 import logging
+import os
 import time
-from typing import Optional
+import requests
+from typing import Optional, List
 from selenium import webdriver
 from selenium.common import TimeoutException, NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.edge.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from constants import DRIVER_PATH
-from constants import NEED_URL
+from config import DRIVER_PATH, NEED_URL
+from utils import clean_filename
 
 
 class PageOperator:
@@ -21,7 +23,7 @@ class PageOperator:
         """初始化Edge浏览器驱动"""
         try:
             self.driver = webdriver.Edge(service=Service(DRIVER_PATH))
-            self.driver.implicitly_wait(10)  # 隐式等待
+            self.driver.implicitly_wait(10)
             return self.driver
         except Exception as e:
             logging.error(f"初始化浏览器驱动失败: {e}")
@@ -34,7 +36,6 @@ class PageOperator:
 
         try:
             self.driver.get(url)
-            # 输入账号密码并提交
             self.driver.find_element(By.NAME, "account").send_keys(account)
             self.driver.find_element(By.NAME, "password").send_keys(password)
             self.driver.find_element(By.ID, "submit").click()
@@ -50,45 +51,34 @@ class PageOperator:
         :param target_text: 要选择的选项文本
         :return: 是否选中成功
         """
-        # 校验驱动是否初始化
         if not self.driver:
             raise RuntimeError("浏览器驱动未初始化")
 
         try:
-            # 1. 等待触发按钮可点击并点击（替换原直接find_element，增强稳定性）
             trigger_button = WebDriverWait(self.driver, 10).until(
                 EC.element_to_be_clickable((By.CSS_SELECTOR, selector))
             )
             trigger_button.click()
 
-            # 2. 等待选项列表加载完成且第一个选项可点击（精准等待，替代仅presence检查）
             results_locator = (By.CSS_SELECTOR, "ul.chosen-results li")
-            # WebDriverWait(self.driver, 10).until(
-            #     EC.element_to_be_clickable(results_locator)
-            # )
-            # 短暂等待所有选项渲染完成（应对异步加载的边界情况）
             time.sleep(0.3)
 
-            # 3. 遍历选项并点击匹配项（保留原逻辑，优化日志）
             li_elements = self.driver.find_elements(*results_locator)
             for element in li_elements:
-                element_text = element.text.strip()  # 去除首尾空格，避免匹配失败
+                element_text = element.text.strip()
                 if target_text in element_text:
-                    # 确保元素可点击后再点击
                     WebDriverWait(self.driver, 5).until(
                         EC.element_to_be_clickable(element)
                     ).click()
                     logging.info(f"成功选中Chosen下拉框选项: {target_text}")
                     return True
 
-            # 未找到匹配选项的日志和返回
             logging.warning(f"在Chosen下拉框中未找到匹配的选项: {target_text}")
             return False
 
         except TimeoutException:
             logging.error(f"选择Chosen下拉框选项超时：触发按钮选择器[{selector}]，目标文本[{target_text}]")
             return False
-            # raise
         except NoSuchElementException:
             logging.error(f"选择Chosen下拉框选项失败：未找到触发按钮[{selector}]或选项列表")
             raise
@@ -103,7 +93,6 @@ class PageOperator:
 
         try:
             submit_btn = self.driver.find_element(By.ID, "submit")
-            # 滚动到按钮可见
             self.driver.execute_script("arguments[0].scrollIntoView(true);", submit_btn)
             submit_btn.click()
             logging.info("表单提交成功")
@@ -135,3 +124,95 @@ class PageOperator:
             self.driver.quit()
             self.driver = None
             logging.info("浏览器驱动已关闭")
+
+    def download_story_files(self, story_ids: List[str], download_folder: str) -> None:
+        """
+        下载需求相关的文件，清理文件名中的多余信息
+
+        Args:
+            story_ids: 需求ID数组
+            download_folder: 下载文件夹路径
+        """
+        if not self.driver:
+            raise RuntimeError("浏览器驱动未初始化")
+
+        if not os.path.exists(download_folder):
+            os.makedirs(download_folder)
+
+        for story_id in story_ids:
+            try:
+                time.sleep(1)
+                url = f"{NEED_URL}{story_id}"
+
+                logging.info(f"正在访问需求 {story_id} 的页面...")
+                self.driver.get(url)
+
+                WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_element_located((By.TAG_NAME, "body"))
+                )
+
+                files_list = self.driver.find_elements(By.CSS_SELECTOR, "ul.files-list li")
+
+                if not files_list:
+                    logging.info(f"需求 {story_id} 没有找到文件")
+                    continue
+
+                logging.info(f"需求 {story_id} 找到 {len(files_list)} 个文件")
+
+                story_folder = os.path.join(download_folder, f"story_{story_id}")
+                if not os.path.exists(story_folder):
+                    os.makedirs(story_folder)
+
+                downloaded_count = 0
+                for file_item in files_list:
+                    try:
+                        download_link = file_item.find_element(By.TAG_NAME, "a")
+                        raw_file_name = download_link.text.strip()
+                        file_url = download_link.get_attribute("href")
+
+                        if file_url and raw_file_name:
+                            clean_file_name = clean_filename(raw_file_name)
+                            local_file_path = os.path.join(story_folder, clean_file_name)
+
+                            logging.info(f"原始文件名: {raw_file_name}")
+                            logging.info(f"清理后文件名: {clean_file_name}")
+                            logging.info(f"正在下载: {clean_file_name}")
+
+                            try:
+                                selenium_cookies = self.driver.get_cookies()
+                                session = requests.Session()
+
+                                for cookie in selenium_cookies:
+                                    session.cookies.set(cookie['name'], cookie['value'])
+
+                                headers = {
+                                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+                                }
+
+                                response = session.get(file_url, headers=headers, stream=True)
+                                response.raise_for_status()
+
+                                with open(local_file_path, 'wb') as f:
+                                    for chunk in response.iter_content(chunk_size=8192):
+                                        if chunk:
+                                            f.write(chunk)
+
+                                downloaded_count += 1
+                                logging.info(f"✓ 成功下载: {clean_file_name}")
+
+                            except Exception as download_error:
+                                logging.error(f"✗ 下载失败 {clean_file_name}: {str(download_error)}")
+
+                            time.sleep(1)
+
+                    except Exception as e:
+                        logging.error(f"处理文件时出错: {str(e)}")
+                        continue
+
+                logging.info(f"需求 {story_id} 的文件下载完成: {downloaded_count}/{len(files_list)}")
+
+            except Exception as e:
+                logging.error(f"处理需求 {story_id} 时出错: {str(e)}")
+                continue
+
+        logging.info("所有需求文件下载任务完成")

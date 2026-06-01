@@ -13,6 +13,9 @@ DEFAULT_STORY_ID_LIST = [
 JSON_DATA_PATH = "D:\\VayoPro\\需求方案\\gpt_output\\"
 USERNAME = "lihz"
 PASSWORD = "Vayo@2460"
+DOWNLOAD_FOLDER = "D:\\VayoPro\\需求方案\\down"
+OUTPUT_BASE_FOLDER = "D:\\VayoPro\\需求方案\\mid"
+
 # 产品ID
 PRODUCT_DICT = {
     "Vayo SWS 软件V1": 74,

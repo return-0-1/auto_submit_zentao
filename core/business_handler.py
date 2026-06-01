@@ -1,9 +1,8 @@
 import logging
-from typing import Dict, Any
-from constants import JSON_DATA_PATH
-from utils import read_json_file
-from page_operations import PageOperator
-from selenium.webdriver.common.by import By
+from typing import Dict, Any, List
+from config import JSON_DATA_PATH
+from utils import read_json_file, get_url_by_type
+from core import PageOperator
 
 
 class FormFiller:
@@ -19,34 +18,28 @@ class FormFiller:
 
         for single in data.values():
             try:
-                from constants import PRODUCT_DICT
-                product_id = PRODUCT_DICT.get(product)  # 默认值为4
+                from config import PRODUCT_DICT
+                product_id = PRODUCT_DICT.get(product)
                 url = f"http://192.168.7.3:82/index.php?m=testcase&f=create&productID={product_id}&branch=0&moduleID=0"
-                self.page_operator.driver.get(url)  # 重新加载表单页面
+                self.page_operator.driver.get(url)
                 title = single.get("标题", "")
                 steps = single.get("步骤", {})
                 expects = single.get("预期", {})
 
-                # 填写标题
                 self.page_operator.driver.find_element(By.NAME, "title").send_keys(title)
 
-                # 填写步骤
                 for key, value in steps.items():
                     step_elem = self.page_operator.driver.find_element(By.NAME, f"steps[{key}]")
                     step_elem.send_keys(value)
-                    self.page_operator.driver.find_element(By.TAG_NAME, "body").click()  # 失去焦点
+                    self.page_operator.driver.find_element(By.TAG_NAME, "body").click()
 
-                # 填写预期结果
                 for key, value in expects.items():
                     expect_elem = self.page_operator.driver.find_element(By.NAME, f"expects[{key}]")
                     expect_elem.send_keys(value)
 
-                # 选择下拉框选项
                 self.page_operator.select_chosen_option("#module_chosen > a.chosen-single", module)
-                # self.page_operator.select_chosen_option("#product_chosen > a.chosen-single", product)
                 is_demand_selected = self.page_operator.select_chosen_option("#story_chosen > a.chosen-single", demand)
 
-                # 验证并提交
                 if is_demand_selected:
                     logging.info(f"需求 {demand} 选中成功，提交表单")
                     self.page_operator.submit_form()
@@ -74,18 +67,15 @@ class FormFiller:
 
         for single in data.values():
             try:
-                self.page_operator.driver.get(url)  # 重新加载表单页面
+                self.page_operator.driver.get(url)
                 title = single.get("标题", "")
 
-                # 填写标题
                 self.page_operator.driver.find_element(By.NAME, "title").send_keys(title)
 
-                # 选择下拉框选项
                 self.page_operator.select_chosen_option("#module_chosen > a.chosen-single", module)
                 self.page_operator.select_chosen_option("#product_chosen > a.chosen-single", product)
                 is_demand_selected = self.page_operator.select_chosen_option("#story_chosen > a.chosen-single", demand)
 
-                # 提交表单
                 if is_demand_selected:
                     self.page_operator.submit_form()
                 else:
@@ -108,24 +98,15 @@ class BusinessHandler:
     def process_file(self, story_id: str, submit_type: str, module: str) -> None:
         """处理单个JSON文件，填写对应表单"""
         try:
-            # 解析需求名称
             json_file = story_id + ".json"
-
-            # 获取目标URL并登录
-            from utils import get_url_by_type
             target_url = get_url_by_type(submit_type)
             if not target_url:
                 raise ValueError(f"无效的提交类型: {submit_type}")
 
             self.page_operator.login(target_url, self.username, self.password)
-
-            # 获取产品名称
             product = self.page_operator.get_product_name(story_id)
-
-            # 读取JSON数据
             data = read_json_file(f"{JSON_DATA_PATH}{json_file}")
 
-            # 根据类型填写表单
             if submit_type == "case":
                 self.form_filler.fill_test_case(target_url, module, story_id, data, product)
             elif submit_type == "bug":
@@ -135,6 +116,25 @@ class BusinessHandler:
 
         except Exception as e:
             logging.error(f"处理文件 {story_id} 失败: {e}")
+            raise
+        finally:
+            self.page_operator.close_driver()
+
+    def download_story_files(self, story_ids: List[str], download_folder: str) -> None:
+        """
+        下载需求相关的文件
+
+        Args:
+            story_ids: 需求ID列表
+            download_folder: 下载文件夹路径
+        """
+        try:
+            from config import CASE_URL
+            self.page_operator.login(CASE_URL, self.username, self.password)
+            self.page_operator.download_story_files(story_ids, download_folder)
+            logging.info("下载任务完成")
+        except Exception as e:
+            logging.error(f"下载需求文件失败: {e}")
             raise
         finally:
             self.page_operator.close_driver()

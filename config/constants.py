@@ -1,4 +1,10 @@
 # 常量定义
+
+# GPT 配置
+GPT_API_KEY = "sk-e4607a986ef045c09c93d618b82760f4"
+GPT_MODEL = "deepseek-chat"
+GPT_API_URL = "https://api.deepseek.com/v1/chat/completions"
+GPT_PROMPT_FILE = "prompt.txt"
 CASE_URL = "http://192.168.7.3:82/index.php?m=testcase&f=create&productID=4&branch=0&moduleID=0"
 BUG_URL = "http://vxian.synology.me:82/index.php?m=bug&f=create&productID=33&branch=0&extra=moduleID=0"
 DRIVER_PATH = "C:\\Users\\V072\\.wdm\\drivers\\edgedriver\\win64\\msedgedriver.exe"

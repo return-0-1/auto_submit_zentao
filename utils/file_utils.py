@@ -7,6 +7,19 @@ import win32api
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
+def read_txt_file(file_path: str) -> str:
+    """读取txt文件内容"""
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            return f.read()
+    except FileNotFoundError:
+        logging.error(f"文件不存在: {file_path}")
+        return ""
+    except Exception as e:
+        logging.error(f"读取文件失败: {file_path}, 错误: {str(e)}")
+        return ""
+
+
 def read_json_file(file_path: str) -> Dict[str, Any]:
     """安全读取JSON文件，包含异常处理"""
     try:

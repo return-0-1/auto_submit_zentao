@@ -4,10 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1f222274-dd4a-4f43-9551-0cd048d665f3" name="更改" comment="增加ts同步工具&#10;修改提示词">
+    <list default="true" id="1f222274-dd4a-4f43-9551-0cd048d665f3" name="更改" comment="ts_sync.py增加批量同步，并增加界面">
+      <change afterPath="$PROJECT_DIR$/../tools/parse_story_to_csv.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../tools/test0421.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/constants.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../tools/ts_sync.py" beforeDir="false" afterPath="$PROJECT_DIR$/../tools/ts_sync.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/html_to_csv.py" beforeDir="false" afterPath="$PROJECT_DIR$/../tools/html_to_csv.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/prompt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../tools/prompt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tools/utility.py" beforeDir="false" afterPath="$PROJECT_DIR$/../tools/utility.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,9 +43,13 @@
   &quot;keyToString&quot;: {
     &quot;Python.GPT.executor&quot;: &quot;Run&quot;,
     &quot;Python.get_need.executor&quot;: &quot;Run&quot;,
+    &quot;Python.html_to_csv.executor&quot;: &quot;Run&quot;,
     &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.parse_story_to_csv.executor&quot;: &quot;Run&quot;,
     &quot;Python.reflow_cal.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test0421.executor&quot;: &quot;Run&quot;,
     &quot;Python.ts_sync.executor&quot;: &quot;Run&quot;,
+    &quot;Python.utils.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
@@ -84,6 +93,28 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../autoSubmit/get_need.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="html_to_csv" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="tools" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../tools" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../tools/html_to_csv.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -142,6 +173,7 @@
         <item itemvalue="Python.main" />
         <item itemvalue="Python.GPT" />
         <item itemvalue="Python.get_need" />
+        <item itemvalue="Python.html_to_csv" />
       </list>
     </recent_temporary>
   </component>
@@ -185,13 +217,22 @@
       <option name="project" value="LOCAL" />
       <updated>1773990269578</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="ts_sync.py增加批量同步，并增加界面">
+      <option name="closed" value="true" />
+      <created>1774598460321</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1774598460321</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="重构" />
     <MESSAGE value="增加ts同步工具&#10;修改提示词" />
-    <option name="LAST_COMMIT_MESSAGE" value="增加ts同步工具&#10;修改提示词" />
+    <MESSAGE value="ts_sync.py增加批量同步，并增加界面" />
+    <option name="LAST_COMMIT_MESSAGE" value="ts_sync.py增加批量同步，并增加界面" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -1,6 +1,7 @@
 import json
 import logging
 from typing import Dict, Any, Optional
+import win32api
 
 # 配置日志（全局只配置一次）
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -30,3 +31,10 @@ def get_url_by_type(submit_type: str) -> Optional[str]:
     if not url:
         logging.warning(f"无效的提交类型: {submit_type}，仅支持case/bug")
     return url
+
+
+
+
+
+
+

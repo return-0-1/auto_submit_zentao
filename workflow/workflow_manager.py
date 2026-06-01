@@ -1,3 +1,7 @@
+import logging
+from config.constants import DEBUG_MODE
+
+
 class WorkflowManager:
     """工作流管理器，负责编排和执行各个阶段"""
 
@@ -13,6 +17,9 @@ class WorkflowManager:
             'gpt': GptStage(),
             'submit': SubmitStage()
         }
+        
+        if DEBUG_MODE:
+            logging.info("[调试模式] 已启用，表单提交操作将仅输出日志，不真正提交")
 
     def run_stage(self, stage_name: str):
         """运行单个阶段"""
@@ -30,6 +37,9 @@ class WorkflowManager:
         stages_order = ['download', 'process', 'gpt', 'submit']
         
         logging.info("开始执行完整流程")
+        if DEBUG_MODE:
+            logging.info("[调试模式] 流程执行中，所有提交操作将被跳过")
+        
         for stage_name in stages_order:
             try:
                 self.run_stage(stage_name)

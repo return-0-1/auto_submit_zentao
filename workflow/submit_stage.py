@@ -1,6 +1,6 @@
 import logging
 from core import BusinessHandler
-from config import USERNAME, PASSWORD, DEFAULT_STORY_ID_LIST, DEFAULT_SUBMIT_TYPE, DEFAULT_MODULE
+from config.constants import USERNAME, PASSWORD, DEFAULT_STORY_ID_LIST, DEFAULT_SUBMIT_TYPE, DEFAULT_MODULE
 
 
 class SubmitStage:

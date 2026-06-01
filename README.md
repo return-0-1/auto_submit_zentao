@@ -44,19 +44,49 @@ auto_submit_zentao/
 1. 克隆项目到本地
 2. 安装依赖包：
    ```bash
-   pip install selenium pywin32
+   pip install selenium pywin32 python-dotenv python-pptx python-docx
    ```
 3. 配置 Edge 浏览器驱动（确保已安装 Microsoft Edge 浏览器）
 
 ## 配置说明
 
+### 方式一：使用环境变量（推荐）
+
+1. 复制 `.env.example` 文件为 `.env`：
+   ```bash
+   copy .env.example .env
+   ```
+
+2. 编辑 `.env` 文件，填写您的敏感配置：
+   ```ini
+   # 禅道登录配置
+   ZENTAO_USERNAME=your_username
+   ZENTAO_PASSWORD=your_password
+
+   # GPT API 配置
+   GPT_API_KEY=your_api_key_here
+
+   # 路径配置（可选）
+   DRIVER_PATH=C:\path\to\msedgedriver.exe
+   DOWNLOAD_FOLDER=D:\VayoPro\需求方案\down
+   OUTPUT_BASE_FOLDER=D:\VayoPro\需求方案\mid
+   JSON_DATA_PATH=D:\VayoPro\需求方案\gpt_output\
+   ```
+
+### 方式二：修改配置文件
+
 在 `config/constants.py` 中配置以下内容：
 
-- `ZENTAO_URL` - 禅道系统地址
-- `DRIVER_PATH` - Edge 浏览器驱动路径
 - `USERNAME` - 登录用户名
 - `PASSWORD` - 登录密码
+- `GPT_API_KEY` - GPT API 密钥
+- `DRIVER_PATH` - Edge 浏览器驱动路径
+- `DOWNLOAD_FOLDER` - 下载文件夹路径
+- `OUTPUT_BASE_FOLDER` - 输出基础文件夹路径
+- `JSON_DATA_PATH` - JSON数据文件夹路径
 - `PRODUCT_DICT` - 产品ID映射字典
+
+> **安全提示**：推荐使用环境变量方式配置敏感信息，避免将密码和API密钥提交到版本控制系统。
 
 ## 使用方法
 

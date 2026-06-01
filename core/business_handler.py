@@ -1,7 +1,7 @@
 import logging
 from typing import Dict, Any, List
-from config import JSON_DATA_PATH
-from utils import read_json_file, get_url_by_type
+from config.constants import JSON_DATA_PATH
+from utils.file_utils import read_json_file, get_url_by_type
 from core import PageOperator
 
 

@@ -1,6 +1,6 @@
 import logging
 from core import BusinessHandler
-from config import USERNAME, PASSWORD, DOWNLOAD_FOLDER, DEFAULT_STORY_ID_LIST
+from config.constants import USERNAME, PASSWORD, DOWNLOAD_FOLDER, DEFAULT_STORY_ID_LIST
 
 
 class DownloadStage:

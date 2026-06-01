@@ -9,8 +9,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.edge.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from config import DRIVER_PATH, NEED_URL
-from utils import clean_filename
+from config.constants import DRIVER_PATH, NEED_URL, DEBUG_MODE
+from utils.file_utils import clean_filename
 
 
 class PageOperator:
@@ -94,8 +94,13 @@ class PageOperator:
         try:
             submit_btn = self.driver.find_element(By.ID, "submit")
             self.driver.execute_script("arguments[0].scrollIntoView(true);", submit_btn)
-            submit_btn.click()
-            logging.info("表单提交成功")
+            
+            if DEBUG_MODE:
+                logging.info("[调试模式] 表单未实际提交，仅输出日志提示")
+                logging.info(f"[调试模式] 提交按钮已定位: {submit_btn}")
+            else:
+                submit_btn.click()
+                logging.info("表单提交成功")
         except Exception as e:
             logging.error(f"表单提交失败: {e}")
             raise

@@ -1,14 +1,44 @@
 # 常量定义
 
+# 尝试从环境变量读取配置
+import os
+
+# 支持通过 .env 文件加载环境变量
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass  # 如果没有安装 python-dotenv，直接使用环境变量
+
+# ============ 安全配置（从环境变量读取） ============
+
+# 禅道登录配置
+USERNAME = os.environ.get('ZENTAO_USERNAME', 'lihz')
+PASSWORD = os.environ.get('ZENTAO_PASSWORD', 'Vayo@2460')
+
+# GPT API 配置
+GPT_API_KEY = os.environ.get('GPT_API_KEY', 'sk-e4607a986ef045c09c93d618b82760f4')
+
+# ============ 基础配置 ============
+
 # GPT 配置
-GPT_API_KEY = "sk-e4607a986ef045c09c93d618b82760f4"
 GPT_MODEL = "deepseek-chat"
 GPT_API_URL = "https://api.deepseek.com/v1/chat/completions"
 GPT_PROMPT_FILE = "prompt.txt"
+
+# 调试模式配置
+DEBUG_MODE = False  # 设为 True 时，表单提交操作将仅输出日志，不真正提交
+
+# URL 配置
 CASE_URL = "http://192.168.7.3:82/index.php?m=testcase&f=create&productID=4&branch=0&moduleID=0"
 BUG_URL = "http://vxian.synology.me:82/index.php?m=bug&f=create&productID=33&branch=0&extra=moduleID=0"
-DRIVER_PATH = "C:\\Users\\V072\\.wdm\\drivers\\edgedriver\\win64\\msedgedriver.exe"
+
+# 路径配置（支持环境变量覆盖）
+DRIVER_PATH = os.environ.get('DRIVER_PATH', "C:\\Users\\V072\\.wdm\\drivers\\edgedriver\\win64\\msedgedriver.exe")
 NEED_URL = "http://192.168.7.3:82/index.php?m=story&f=view&t=html&id="
+DOWNLOAD_FOLDER = os.environ.get('DOWNLOAD_FOLDER', "D:\\VayoPro\\需求方案\\down")
+OUTPUT_BASE_FOLDER = os.environ.get('OUTPUT_BASE_FOLDER', "D:\\VayoPro\\需求方案\\mid")
+JSON_DATA_PATH = os.environ.get('JSON_DATA_PATH', "D:\\VayoPro\\需求方案\\gpt_output\\")
 
 # 默认配置
 DEFAULT_MODULE = "/"
@@ -16,11 +46,6 @@ DEFAULT_SUBMIT_TYPE = "case"
 DEFAULT_STORY_ID_LIST = [
     "3776","3763"
 ]
-JSON_DATA_PATH = "D:\\VayoPro\\需求方案\\gpt_output\\"
-USERNAME = "lihz"
-PASSWORD = "Vayo@2460"
-DOWNLOAD_FOLDER = "D:\\VayoPro\\需求方案\\down"
-OUTPUT_BASE_FOLDER = "D:\\VayoPro\\需求方案\\mid"
 
 # 产品ID
 PRODUCT_DICT = {

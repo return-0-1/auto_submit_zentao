@@ -2,8 +2,9 @@ import logging
 import os
 import shutil
 from typing import List
-from config.constants import DEBUG_MODE, DOWNLOAD_FOLDER, OUTPUT_BASE_FOLDER, JSON_DATA_PATH, DEFAULT_STORY_ID_LIST
+from config.constants import DEBUG_MODE, DOWNLOAD_FOLDER, OUTPUT_BASE_FOLDER, JSON_DATA_PATH, DEFAULT_STORY_ID_LIST, USERNAME, PASSWORD
 from workflow.state_manager import state_manager, StageStatus
+from core.business_handler import BusinessHandler
 
 
 class WorkflowManager:
@@ -24,6 +25,9 @@ class WorkflowManager:
         
         self.current_run_id = None
         self.story_ids = DEFAULT_STORY_ID_LIST
+        
+        # 共享的业务处理器（实现单例登录）
+        self.handler = None
         
         if DEBUG_MODE:
             logging.info("[调试模式] 已启用，表单提交操作将仅输出日志，不真正提交")
@@ -57,6 +61,12 @@ class WorkflowManager:
             else:
                 logging.info(f"文件夹不存在，跳过清理: {folder}")
 
+    def _init_handler(self):
+        """初始化共享的业务处理器（只初始化一次）"""
+        if not self.handler:
+            self.handler = BusinessHandler(USERNAME, PASSWORD)
+            logging.info("已初始化共享业务处理器")
+    
     def run_stage(self, stage_name: str, story_ids: List[str] = None):
         """
         运行单个阶段
@@ -90,8 +100,12 @@ class WorkflowManager:
             state_manager.update_stage_status(self.current_run_id, stage_name, StageStatus.RUNNING)
         
         try:
-            # 执行阶段
-            stage.execute(story_ids=pending_stories)
+            # 对于需要登录的阶段，先初始化handler
+            if stage_name in ['download', 'submit']:
+                self._init_handler()
+            
+            # 执行阶段（传递handler）
+            stage.execute(story_ids=pending_stories, handler=self.handler)
             
             # 更新状态为已完成
             if self.current_run_id:
@@ -161,6 +175,11 @@ class WorkflowManager:
             state_manager.complete_run(self.current_run_id, success=False)
             logging.error(f"完整流程执行失败: {e}")
             raise
+        finally:
+            # 流程结束时关闭handler
+            if self.handler:
+                self.handler.close()
+                self.handler = None
 
     def check_completed_stories(self, stage_name: str = 'submit') -> List[str]:
         """

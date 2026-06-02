@@ -139,13 +139,28 @@ class GptStage:
         
         return debug_path
 
-    def process_txt_files_to_gpt(self, input_folder: str, output_folder: str = "gpt_output", max_workers: int = 3):
+    def process_txt_files_to_gpt(self, input_folder: str, output_folder: str = "gpt_output", max_workers: int = 3, story_ids: list = None):
         """批量处理txt文件"""
         Path(output_folder).mkdir(exist_ok=True)
-        txt_files = [f for f in os.listdir(input_folder) if f.endswith('.txt')]
+        
+        # 获取所有txt文件
+        all_txt_files = [f for f in os.listdir(input_folder) if f.endswith('.txt')]
+        
+        # 如果指定了story_ids，则只处理对应ID的文件
+        if story_ids:
+            # 构建需要处理的文件名集合 (story_id.txt)
+            expected_files = {f"{story_id}.txt" for story_id in story_ids}
+            txt_files = [f for f in all_txt_files if f in expected_files]
+            
+            # 检查是否有缺失的文件
+            missing_files = expected_files - set(all_txt_files)
+            if missing_files:
+                logger.warning(f"以下需求对应的txt文件不存在: {missing_files}")
+        else:
+            txt_files = all_txt_files
 
         if not txt_files:
-            logger.info(f"在文件夹 {input_folder} 中未找到txt文件")
+            logger.info(f"在文件夹 {input_folder} 中未找到需要处理的txt文件")
             return
 
         logger.info(f"找到 {len(txt_files)} 个txt文件，开始并行处理...")
@@ -175,7 +190,7 @@ class GptStage:
 
         logger.info(f"\n处理完成! 成功: {successful_files}, 失败: {failed_files}, 输出: {output_folder}")
 
-    def execute(self, story_ids: list = None, input_folder: str = None, output_folder: str = None, max_workers: int = 3) -> bool:
+    def execute(self, story_ids: list = None, input_folder: str = None, output_folder: str = None, max_workers: int = 3, handler=None) -> bool:
         """执行GPT处理阶段"""
         logger.info("开始执行GPT处理阶段")
 
@@ -186,7 +201,8 @@ class GptStage:
             logger.info(f"输入文件夹: {actual_input}")
             logger.info(f"输出文件夹: {actual_output}")
             
-            self.process_txt_files_to_gpt(actual_input, actual_output, max_workers)
+            # 根据story_ids过滤要处理的文件
+            self.process_txt_files_to_gpt(actual_input, actual_output, max_workers, story_ids)
             logger.info("GPT处理阶段执行完成")
             return True
         except Exception as e:

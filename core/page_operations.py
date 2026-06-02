@@ -20,10 +20,22 @@ class PageOperator:
         self.driver: Optional[webdriver.Edge] = None
 
     def init_driver(self) -> webdriver.Edge:
-        """初始化Edge浏览器驱动"""
+        """初始化Edge浏览器驱动（启动时最小化）"""
         try:
-            self.driver = webdriver.Edge(service=Service(DRIVER_PATH))
+            from selenium.webdriver.edge.options import Options
+            
+            options = Options()
+            # 添加启动参数：最小化窗口
+            options.add_argument("--start-minimized")
+            # 不自动聚焦窗口
+            options.add_argument("--no-focus-on-launch")
+            
+            self.driver = webdriver.Edge(service=Service(DRIVER_PATH), options=options)
             self.driver.implicitly_wait(10)
+            
+            # 确保窗口最小化
+            self.driver.minimize_window()
+            
             return self.driver
         except Exception as e:
             logging.error(f"初始化浏览器驱动失败: {e}")

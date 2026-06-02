@@ -30,6 +30,7 @@ GPT_PROMPT_FILE = "prompt.txt"
 DEBUG_MODE = True  # 设为 True 时，表单提交操作将仅输出日志，不真正提交
 
 # URL 配置
+ZENTAO_BASE_URL = "http://192.168.7.3:82"  # 禅道服务器基础地址（用于API提交）
 CASE_URL = "http://192.168.7.3:82/index.php?m=testcase&f=create&productID=4&branch=0&moduleID=0"
 BUG_URL = "http://vxian.synology.me:82/index.php?m=bug&f=create&productID=33&branch=0&extra=moduleID=0"
 
@@ -44,7 +45,9 @@ JSON_DATA_PATH = os.environ.get('JSON_DATA_PATH', "D:\\VayoPro\\需求方案\\gp
 DEFAULT_MODULE = "/"
 DEFAULT_SUBMIT_TYPE = "case"
 DEFAULT_STORY_ID_LIST = [
-    "3776","3763"
+    "3795",
+    "3781",
+    "3820"
 ]
 
 # 产品ID

@@ -8,7 +8,7 @@ import time
 from typing import Tuple, Optional, List
 
 from utils.file_utils import read_txt_file
-from config.constants import GPT_API_KEY, GPT_MODEL, GPT_API_URL, GPT_PROMPT_FILE
+from config.constants import GPT_API_KEY, GPT_MODEL, GPT_API_URL, GPT_PROMPT_FILE, OUTPUT_BASE_FOLDER, JSON_DATA_PATH
 
 logger = logging.getLogger(__name__)
 
@@ -175,13 +175,18 @@ class GptStage:
 
         logger.info(f"\n处理完成! 成功: {successful_files}, 失败: {failed_files}, 输出: {output_folder}")
 
-    def execute(self, input_folder: str = None, output_folder: str = "gpt_output", max_workers: int = 3) -> bool:
+    def execute(self, story_ids: list = None, input_folder: str = None, output_folder: str = None, max_workers: int = 3) -> bool:
         """执行GPT处理阶段"""
         logger.info("开始执行GPT处理阶段")
-        input_folder = input_folder or "零一"
 
         try:
-            self.process_txt_files_to_gpt(input_folder, output_folder, max_workers)
+            actual_input = input_folder if input_folder else OUTPUT_BASE_FOLDER
+            actual_output = output_folder if output_folder else JSON_DATA_PATH
+            
+            logger.info(f"输入文件夹: {actual_input}")
+            logger.info(f"输出文件夹: {actual_output}")
+            
+            self.process_txt_files_to_gpt(actual_input, actual_output, max_workers)
             logger.info("GPT处理阶段执行完成")
             return True
         except Exception as e:

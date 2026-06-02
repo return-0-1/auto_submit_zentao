@@ -217,7 +217,7 @@ def process_single_story_folder(story_folder_path: str, story_id: str, output_ba
         logging.warning(f"⚠ 需求 {story_id} 文件夹中没有找到PPTX或DOCX文件")
 
 
-def extract_text_from_story_folders(root_folder: str, output_base_folder: str = '零一'):
+def extract_text_from_story_folders(root_folder: str, output_base_folder: str = None):
     """从story_xxx格式的文件夹中提取PPTX文本"""
     import os
     from pathlib import Path

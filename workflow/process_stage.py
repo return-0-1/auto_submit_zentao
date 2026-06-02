@@ -17,7 +17,7 @@ class ProcessStage:
         self.input_folder = input_folder or DOWNLOAD_FOLDER
         self.output_folder = output_folder or OUTPUT_BASE_FOLDER
 
-    def execute(self) -> bool:
+    def execute(self, story_ids: list = None) -> bool:
         """执行处理阶段"""
         logging.info("开始执行处理阶段")
         logging.info(f"输入文件夹: {self.input_folder}")

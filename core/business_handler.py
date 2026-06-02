@@ -1,6 +1,7 @@
 import logging
 from typing import Dict, Any, List
-from config.constants import JSON_DATA_PATH
+from selenium.webdriver.common.by import By
+from config.constants import JSON_DATA_PATH, PRODUCT_DICT
 from utils.file_utils import read_json_file, get_url_by_type
 from core.page_operations import PageOperator
 
@@ -18,7 +19,6 @@ class FormFiller:
 
         for single in data.values():
             try:
-                from config import PRODUCT_DICT
                 product_id = PRODUCT_DICT.get(product)
                 url = f"http://192.168.7.3:82/index.php?m=testcase&f=create&productID={product_id}&branch=0&moduleID=0"
                 self.page_operator.driver.get(url)
@@ -94,6 +94,14 @@ class BusinessHandler:
         self.password = password
         self.page_operator = PageOperator()
         self.form_filler = FormFiller(self.page_operator)
+        self.is_logged_in = False
+
+    def login(self, url: str) -> None:
+        """登录系统（复用会话）"""
+        if not self.is_logged_in:
+            self.page_operator.login(url, self.username, self.password)
+            self.is_logged_in = True
+            logging.info("已建立登录会话")
 
     def process_file(self, story_id: str, submit_type: str, module: str) -> None:
         """处理单个JSON文件，填写对应表单"""
@@ -103,7 +111,7 @@ class BusinessHandler:
             if not target_url:
                 raise ValueError(f"无效的提交类型: {submit_type}")
 
-            self.page_operator.login(target_url, self.username, self.password)
+            self.login(target_url)
             product = self.page_operator.get_product_name(story_id)
             data = read_json_file(f"{JSON_DATA_PATH}{json_file}")
 
@@ -117,8 +125,11 @@ class BusinessHandler:
         except Exception as e:
             logging.error(f"处理文件 {story_id} 失败: {e}")
             raise
-        finally:
-            self.page_operator.close_driver()
+
+    def close(self) -> None:
+        """关闭浏览器和会话"""
+        self.page_operator.close_driver()
+        self.is_logged_in = False
 
     def download_story_files(self, story_ids: List[str], download_folder: str) -> None:
         """

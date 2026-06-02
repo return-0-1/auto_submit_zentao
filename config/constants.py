@@ -13,11 +13,11 @@ except ImportError:
 # ============ 安全配置（从环境变量读取） ============
 
 # 禅道登录配置
-USERNAME = os.environ.get('ZENTAO_USERNAME', 'lihz')
-PASSWORD = os.environ.get('ZENTAO_PASSWORD', 'Vayo@2460')
+USERNAME = os.environ.get('ZENTAO_USERNAME')
+PASSWORD = os.environ.get('ZENTAO_PASSWORD')
 
 # GPT API 配置
-GPT_API_KEY = os.environ.get('GPT_API_KEY', 'sk-e4607a986ef045c09c93d618b82760f4')
+GPT_API_KEY = os.environ.get('GPT_API_KEY')
 
 # ============ 基础配置 ============
 

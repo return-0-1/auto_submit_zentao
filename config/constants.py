@@ -27,7 +27,7 @@ GPT_API_URL = "https://api.deepseek.com/v1/chat/completions"
 GPT_PROMPT_FILE = "prompt.txt"
 
 # 调试模式配置
-DEBUG_MODE = False  # 设为 True 时，表单提交操作将仅输出日志，不真正提交
+DEBUG_MODE = True  # 设为 True 时，表单提交操作将仅输出日志，不真正提交
 
 # URL 配置
 CASE_URL = "http://192.168.7.3:82/index.php?m=testcase&f=create&productID=4&branch=0&moduleID=0"

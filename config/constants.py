@@ -22,8 +22,19 @@ GPT_API_KEY = os.environ.get('GPT_API_KEY')
 # ============ 基础配置 ============
 
 # GPT 配置
-GPT_MODEL = "deepseek-chat"
-GPT_API_URL = "https://api.deepseek.com/v1/chat/completions"
+# GPT_PROVIDER: 可选值 "deepseek" 或 "qwen"，用于切换不同的GPT服务
+GPT_PROVIDER = os.environ.get('GPT_PROVIDER', "deepseek")
+
+# DeepSeek GPT 配置
+DEEPSEEK_MODEL = "deepseek-chat"
+DEEPSEEK_API_URL = "https://api.deepseek.com/v1/chat/completions"
+
+# Qwen GPT 配置（新接口）
+QWEN_MODEL = os.environ.get('QWEN_MODEL', "Qwen3-14B")
+QWEN_API_URL = os.environ.get('QWEN_API_URL', "http://192.168.7.70:5001/v1/chat-messages")
+QWEN_API_KEY = os.environ.get('QWEN_API_KEY', "app-A1GY6j4iQCClkS7PNwCqAsq4")
+QWEN_USER = os.environ.get('QWEN_USER', "tester1")
+
 GPT_PROMPT_FILE = "prompt.txt"
 
 # 调试模式配置

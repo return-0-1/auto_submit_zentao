@@ -8,7 +8,11 @@ import time
 from typing import Tuple, Optional, List
 
 from utils.file_utils import read_txt_file
-from config.constants import GPT_API_KEY, GPT_MODEL, GPT_API_URL, GPT_PROMPT_FILE, OUTPUT_BASE_FOLDER, JSON_DATA_PATH
+from config.constants import (
+    GPT_API_KEY, GPT_PROMPT_FILE, OUTPUT_BASE_FOLDER, JSON_DATA_PATH,
+    GPT_PROVIDER, DEEPSEEK_MODEL, DEEPSEEK_API_URL,
+    QWEN_MODEL, QWEN_API_URL, QWEN_API_KEY, QWEN_USER
+)
 
 logger = logging.getLogger(__name__)
 
@@ -17,24 +21,29 @@ class GptStage:
     """GPT处理阶段：调用GPT生成测试用例"""
 
     def __init__(self):
-        self.api_key = GPT_API_KEY
-        self.model = GPT_MODEL
-        self.url = GPT_API_URL
+        self.provider = GPT_PROVIDER
         self.session = self._init_session()
 
     def _init_session(self) -> requests.Session:
         """初始化HTTP会话，复用连接"""
         session = requests.Session()
-        session.headers.update({
-            "Authorization": f"Bearer {self.api_key}",
-            "Content-Type": "application/json",
-            "Connection": "keep-alive"
-        })
+        if self.provider == "deepseek":
+            session.headers.update({
+                "Authorization": f"Bearer {GPT_API_KEY}",
+                "Content-Type": "application/json",
+                "Connection": "keep-alive"
+            })
+        elif self.provider == "qwen":
+            session.headers.update({
+                "Authorization": f"Bearer {QWEN_API_KEY}",
+                "Content-Type": "application/json",
+                "Connection": "keep-alive"
+            })
         return session
 
-    def chat_with_deepseek(self, prompt: str, model: str = None) -> str:
+    def _chat_with_deepseek(self, prompt: str, model: str = None) -> str:
         """调用DeepSeek API获取响应"""
-        current_model = model or self.model
+        current_model = model or DEEPSEEK_MODEL
         content = read_txt_file(GPT_PROMPT_FILE)
 
         data = {
@@ -49,7 +58,7 @@ class GptStage:
 
         for retry in range(3):
             try:
-                response = self.session.post(self.url, json=data, timeout=60)
+                response = self.session.post(DEEPSEEK_API_URL, json=data, timeout=360)
                 response.raise_for_status()
                 response_data = response.json()
                 return response_data['choices'][0]['message']['content']
@@ -69,9 +78,64 @@ class GptStage:
 
         return "多次重试后仍然失败"
 
+    def _chat_with_qwen(self, prompt: str, model: str = None) -> str:
+        """调用Qwen API获取响应（新接口格式）"""
+        current_model = model or QWEN_MODEL
+        content = read_txt_file(GPT_PROMPT_FILE)
+
+        data = {
+            "inputs": {},
+            "query": f"{content}\n\n{prompt}",
+            "response_mode": "blocking",
+            "conversation_id": "",
+            "user": QWEN_USER,
+            "files": []
+        }
+
+        for retry in range(3):
+            try:
+                response = self.session.post(QWEN_API_URL, json=data, timeout=360)
+                response.raise_for_status()
+                response_data = response.json()
+                return response_data.get('answer', '')
+
+            except requests.exceptions.HTTPError as e:
+                logger.error(f"HTTP错误 ({retry+1}/3): {e.response.status_code}")
+                time.sleep(2 ** retry)
+            except requests.exceptions.ConnectionError as e:
+                if "10054" in str(e):
+                    logger.info(f"连接断开，正在重试 ({retry+1}/3)")
+                else:
+                    logger.error(f"连接错误 ({retry+1}/3): {str(e)}")
+                time.sleep(2 ** retry)
+            except Exception as e:
+                logger.error(f"请求异常 ({retry+1}/3): {str(e)}")
+                time.sleep(2 ** retry)
+
+        return "多次重试后仍然失败"
+
+    def chat_with_gpt(self, prompt: str, model: str = None) -> str:
+        """根据配置调用相应的GPT服务"""
+        if self.provider == "deepseek":
+            logger.info(f"使用DeepSeek GPT服务，模型: {model or DEEPSEEK_MODEL}")
+            return self._chat_with_deepseek(prompt, model)
+        elif self.provider == "qwen":
+            logger.info(f"使用Qwen GPT服务，模型: {model or QWEN_MODEL}")
+            return self._chat_with_qwen(prompt, model)
+        else:
+            logger.error(f"未知的GPT服务提供商: {self.provider}")
+            return "未知的GPT服务提供商"
+
     def _parse_gpt_response(self, response_text: str) -> dict:
         """解析GPT响应，提取JSON内容"""
         response_text = response_text.strip()
+
+        # 移除Qwen思考过程标签内容
+        if "<think>" in response_text and "</think>" in response_text:
+            think_start = response_text.find("<think>")
+            think_end = response_text.find("</think>") + len("</think>")
+            response_text = response_text[:think_start] + response_text[think_end:]
+            response_text = response_text.strip()
 
         if "```json" in response_text:
             json_start = response_text.find("```json") + 7
@@ -101,7 +165,7 @@ class GptStage:
                 return filename, None, "文件内容为空"
 
             logger.info(f"文件 {filename} 内容长度: {len(file_content)} 字符")
-            response = self.chat_with_deepseek(file_content)
+            response = self.chat_with_gpt(file_content)
 
             try:
                 test_cases_data = self._parse_gpt_response(response)

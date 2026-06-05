@@ -20,10 +20,11 @@ class BusinessHandler:
         if not self.is_logged_in:
             from core.page_operations import PageOperator
             
-            # 使用Selenium登录
+            # 使用Selenium登录 - 优先使用传入的url，否则使用默认的CASE_URL
+            login_url = url or CASE_URL
             self.page_operator = PageOperator()
             self.page_operator.init_driver()
-            self.page_operator.login(CASE_URL, self.username, self.password)
+            self.page_operator.login(login_url, self.username, self.password)
             logging.info("Selenium登录成功")
             
             # 获取浏览器cookies并同步到requests session
@@ -45,8 +46,8 @@ class BusinessHandler:
 
             self.login(target_url)
             
-            # 获取产品名称
-            product = self.api_submitter.get_product_name(story_id)
+            # 获取产品名称 - 使用Selenium浏览器获取，避免requests被重定向到重置密码页面
+            product = self.page_operator.get_product_name(story_id)
             if not product:
                 logging.warning(f"无法获取需求 {story_id} 的产品名称")
                 return

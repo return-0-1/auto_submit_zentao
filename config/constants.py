@@ -38,7 +38,7 @@ QWEN_USER = os.environ.get('QWEN_USER', "tester1")
 GPT_PROMPT_FILE = "prompt.txt"
 
 # 调试模式配置
-DEBUG_MODE = True  # 设为 True 时，表单提交操作将仅输出日志，不真正提交
+DEBUG_MODE = False  # 设为 True 时，表单提交操作将仅输出日志，不真正提交
 
 # URL 配置
 ZENTAO_BASE_URL = "http://192.168.7.3:82"  # 禅道服务器基础地址（用于API提交）
@@ -56,9 +56,7 @@ JSON_DATA_PATH = os.environ.get('JSON_DATA_PATH', "D:\\VayoPro\\需求方案\\gp
 DEFAULT_MODULE = "/"
 DEFAULT_SUBMIT_TYPE = "case"
 DEFAULT_STORY_ID_LIST = [
-    "3795",
-    "3781",
-    "3820"
+    "3509"
 ]
 
 # 产品ID

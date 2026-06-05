@@ -1,0 +1,43 @@
+{
+  "version": "1.0",
+  "created_at": "2026-06-05T11:40:07.532994",
+  "last_updated": "2026-06-05T11:40:42.279524",
+  "runs": [
+    {
+      "run_id": "20260605_114007",
+      "start_time": "2026-06-05T11:40:07.839624",
+      "end_time": "2026-06-05T11:40:42.279524",
+      "status": "completed",
+      "story_ids": [
+        "3509"
+      ],
+      "stages": {
+        "download": {
+          "status": "completed",
+          "start_time": "2026-06-05T11:40:07.842688",
+          "end_time": "2026-06-05T11:40:13.514861",
+          "completed_stories": [
+            "3509"
+          ]
+        },
+        "process": {
+          "status": "completed",
+          "start_time": "2026-06-05T11:40:13.516372",
+          "end_time": "2026-06-05T11:40:15.182669",
+          "completed_stories": [
+            "3509"
+          ]
+        },
+        "gpt": {
+          "status": "completed",
+          "start_time": "2026-06-05T11:40:15.183174",
+          "end_time": "2026-06-05T11:40:41.281746",
+          "completed_stories": [
+            "3509"
+          ]
+        }
+      },
+      "errors": []
+    }
+  ]
+}

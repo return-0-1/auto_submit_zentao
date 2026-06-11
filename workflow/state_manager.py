@@ -1,10 +1,24 @@
 import json
 import os
 import logging
+import sys
 from datetime import datetime
 from typing import Dict, List, Optional, Set
 
 logger = logging.getLogger(__name__)
+
+def get_app_root():
+    """
+    获取应用程序根目录路径
+    - 开发环境：返回项目根目录
+    - 打包后环境：返回exe所在目录
+    """
+    if getattr(sys, 'frozen', False):
+        # 打包后的环境
+        return os.path.dirname(sys.executable)
+    else:
+        # 开发环境
+        return os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 class StageStatus:
     """阶段状态枚举"""
@@ -17,14 +31,18 @@ class StageStatus:
 class StateManager:
     """状态管理器，负责记录和管理工作流执行状态"""
     
-    def __init__(self, state_file: str = "workflow_state.json"):
+    def __init__(self, state_file: str = None):
         """
         初始化状态管理器
         
         Args:
-            state_file: 状态文件路径，默认为当前目录下的 workflow_state.json
+            state_file: 状态文件路径，默认为应用程序根目录下的 workflow_state.json
         """
-        self.state_file = state_file
+        if state_file is None:
+            # 默认使用应用程序根目录下的状态文件
+            self.state_file = os.path.join(get_app_root(), "workflow_state.json")
+        else:
+            self.state_file = state_file
         self.state = self._load_state()
     
     def _load_state(self) -> Dict:

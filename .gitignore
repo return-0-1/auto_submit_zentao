@@ -55,3 +55,9 @@ coverage.xml
 *.egg-info/
 dist/
 build/
+*.spec
+*.toc
+*.pkg
+
+# 状态文件
+workflow_state.json

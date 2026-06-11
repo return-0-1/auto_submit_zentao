@@ -24,8 +24,8 @@ class ProcessStage:
         logging.info(f"输出文件夹: {self.output_folder}")
 
         try:
-            # 调用 file_utils 中的方法提取文本
-            extract_text_from_story_folders(self.input_folder, self.output_folder)
+            # 调用 file_utils 中的方法提取文本，传递 story_ids 参数
+            extract_text_from_story_folders(self.input_folder, self.output_folder, story_ids)
             logging.info("处理阶段执行完成")
             return True
         except Exception as e:

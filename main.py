@@ -90,12 +90,20 @@ def main():
             print(f"\n共 {len(completed)} 个需求已完成")
         elif args.command == 'reset-state':
             import os
-            state_file = "workflow_state.json"
+            import sys
+            
+            # 获取应用程序根目录
+            if getattr(sys, 'frozen', False):
+                app_root = os.path.dirname(sys.executable)
+            else:
+                app_root = os.path.dirname(os.path.abspath(__file__))
+            
+            state_file = os.path.join(app_root, "workflow_state.json")
             if os.path.exists(state_file):
                 os.remove(state_file)
-                logging.info("状态文件已重置")
+                logging.info(f"状态文件已重置: {state_file}")
             else:
-                logging.info("状态文件不存在")
+                logging.info(f"状态文件不存在: {state_file}")
         
         if args.command not in ['status', 'reset-state']:
             logging.info(f"命令 '{args.command}' 执行完成")

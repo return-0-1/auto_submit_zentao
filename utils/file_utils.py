@@ -217,8 +217,15 @@ def process_single_story_folder(story_folder_path: str, story_id: str, output_ba
         logging.warning(f"⚠ 需求 {story_id} 文件夹中没有找到PPTX或DOCX文件")
 
 
-def extract_text_from_story_folders(root_folder: str, output_base_folder: str = None):
-    """从story_xxx格式的文件夹中提取PPTX文本"""
+def extract_text_from_story_folders(root_folder: str, output_base_folder: str = None, story_ids: list = None):
+    """
+    从story_xxx格式的文件夹中提取PPTX文本
+    
+    Args:
+        root_folder: 包含story_xxx文件夹的根目录
+        output_base_folder: 输出文件夹
+        story_ids: 需要处理的需求ID列表，为None时处理所有story_xxx文件夹
+    """
     import os
     from pathlib import Path
     
@@ -230,6 +237,11 @@ def extract_text_from_story_folders(root_folder: str, output_base_folder: str = 
         if os.path.isdir(item_path) and item.startswith('story_'):
             try:
                 story_id = item.replace('story_', '')
+                
+                # 如果指定了需求ID列表，只处理匹配的需求
+                if story_ids is not None and story_id not in story_ids:
+                    continue
+                    
                 logging.info(f"正在处理需求文件夹: {item} (ID: {story_id})")
                 process_single_story_folder(item_path, story_id, output_base_folder)
 
